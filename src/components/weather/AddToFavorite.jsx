@@ -6,23 +6,24 @@ import { useFavoriteContext, useWeatherContext } from "../../context";
 function AddToFavorite() {
   const [isFavorite, setIsFavorite] = useState(false);
   const { weatherData } = useWeatherContext();
-  const { favorites, addToFavorite, removeToFavorite } = useFavoriteContext();
+  const { favourites, addToFavourites, removeFromFavourites } =
+    useFavoriteContext();
   const { longitude, latitude, location } = weatherData;
 
   const handleFavorite = () => {
-    const found = favorites.find((fav) => fav.location === location);
+    const found = favourites.find((fav) => fav.location === location);
     if (!found) {
-      addToFavorite(longitude, latitude, location);
+      addToFavourites(longitude, latitude, location);
     } else {
-      removeToFavorite(location);
+      removeFromFavourites(location);
     }
     setIsFavorite(!isFavorite);
   };
 
   useEffect(() => {
-    const found = favorites.find((fav) => fav.location === location);
+    const found = favourites.find((fav) => fav.location === location);
     setIsFavorite(found);
-  }, [favorites, location]);
+  }, [favourites, location]);
 
   return (
     <div className="md:col-span-2">

@@ -1,14 +1,41 @@
-import React from "react";
 import locationIcon from "../../assets/pin.svg";
 
+import CloudIcon from "../../assets/cloud.svg";
+import HazeIcon from "../../assets/haze.svg";
+import SnowIcon from "../../assets/icons/snow.svg";
+import SunnyIcon from "../../assets/icons/sunny.svg";
+import RainIcon from "../../assets/rainy.svg";
+import ThunderIcon from "../../assets/thunder.svg";
 import { useWeatherContext } from "../../context";
 import { getFormatDate } from "../../utils/date-utils";
-import { getWeatherIcon } from "../../utils/weather-utils-icon";
+
+function getWeatherIcon(climate) {
+  switch (climate) {
+    case "Rain":
+      return RainIcon;
+    case "Clouds":
+      return CloudIcon;
+    case "Clear":
+      return SunnyIcon;
+    case "Snow":
+      return SnowIcon;
+    case "Thunder":
+      return ThunderIcon;
+    case "Fog":
+      return HazeIcon;
+    case "Haze":
+      return HazeIcon;
+    case "Mist":
+      return HazeIcon;
+
+    default:
+      return SunnyIcon;
+  }
+}
 
 function WeatherShow() {
   const { weatherData } = useWeatherContext();
   const { temperature, location, time, climate } = weatherData;
-
 
   return (
     <div>

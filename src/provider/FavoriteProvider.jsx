@@ -1,41 +1,27 @@
-import React from "react";
 import { FavoriteContext } from "../context/context";
 import { useLocalStorage } from "../hooks";
 
 const FavoriteProvider = ({ children }) => {
-  const [favorites, setFavorites] = useLocalStorage("favorites", []);
+  const [favourites, setFavourites] = useLocalStorage("favourites", []);
 
-  // Check if favorites is an array
-  if (!Array.isArray(favorites)) {
-    console.error("Favorites is not an array:", favorites);
-    // Handle the issue, e.g., set favorites to an empty array
-    setFavorites([]);
-  }
-
-  const addToFavorite = (longitute, latitude, location) => {
-    const newFavorite = {
-      longitute,
-      latitude,
-      location,
-    };
-
-    const updatedFavorites = [...favorites, newFavorite];
-
-    console.log("New Favorite:", updatedFavorites);
-
-    setFavorites(updatedFavorites);
+  const addToFavourites = (latitude, longitude, location) => {
+    setFavourites([
+      ...favourites,
+      {
+        latitude,
+        longitude,
+        location,
+      },
+    ]);
   };
-
-  const removeToFavorite = (location) => {
-    const filteredFavorite = favorites.filter(
-      (fav) => fav.location !== location
-    );
-    setFavorites(filteredFavorite);
+  const removeFromFavourites = (location) => {
+    const filterFav = favourites.filter((fav) => fav.location !== location);
+    setFavourites(filterFav);
   };
 
   return (
     <FavoriteContext.Provider
-      value={{ addToFavorite, removeToFavorite, favorites }}
+      value={{ addToFavourites, removeFromFavourites, favourites }}
     >
       {children}
     </FavoriteContext.Provider>
