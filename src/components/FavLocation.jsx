@@ -8,8 +8,9 @@ function FavLocation() {
   const { setSelectedLocation } = useLocationContext();
 
   const handleSelectLocation = (fav) => {
+    console.log(fav);
     setSelectedLocation(fav);
-    setShowModal(!showModal);
+    setShowModal((prevState) => !prevState);
   };
 
   return (
@@ -28,7 +29,12 @@ function FavLocation() {
             {favourites.length > 0 ? (
               favourites.map((fav) => (
                 <li key={fav.location} className="hover:bg-gray-200">
-                  <a onClick={() => handleSelectLocation({ ...fav })}>
+                  <a
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleSelectLocation({ ...fav });
+                    }}
+                  >
                     {fav.location}
                   </a>
                 </li>
